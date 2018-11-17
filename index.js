@@ -66,8 +66,13 @@ const clusterInstance = new Cluster();
 clusterInstance.start();
 
 const writeStream1 = createWriteStream("./input.txt");
+const {
+  Throttle
+} = require('./throttle-stream');
 
-process.stdin.pipe(writeStream1);
+const slowStream = new Throttle();
+
+process.stdin.pipe(slowStream).pipe(writeStream1);
 //node --trace_gc .
 
 // will dump Scavenge which is not bad as compared to Mark-sweep
