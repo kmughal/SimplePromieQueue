@@ -16,3 +16,8 @@ const tasks = [
 const queue = new PromiseQueue(tasks);
 
 queue.run();
+
+
+//node --trace_gc .
+
+// will dump Scavenge which is not bad as compared to Mark-sweep
