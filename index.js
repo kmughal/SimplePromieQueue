@@ -23,9 +23,6 @@ const queue = new PromiseQueue(tasks);
 
 queue.run();
 
-
-
-
 const fs = require('fs');
 const writeFile = promisify(fs.writeFile);
 const unlink = promisify(fs.unlink);
@@ -47,6 +44,18 @@ const doSomeThing = () =>
 doSomeThing();
 
 
+
+writeFile("sample1.txt", "this is a test file");
+
+const {
+  createReadStream,
+  createWriteStream
+} = require('fs');
+
+const readStream = createReadStream("./sample1.txt");
+const writeStream = createWriteStream("./copySampe1.txt");
+
+readStream.pipe(writeStream).on("error", e => console.log(e));
 
 //node --trace_gc .
 
