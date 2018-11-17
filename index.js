@@ -3,6 +3,12 @@ const {
 } = require('util');
 const wait = promisify(require('./wait').wait);
 const PromiseQueue = require('./promise-queue').PromiseQueue;
+const {StreamArray} = require('./stream-array');
+
+var array = ["One" , "two" , "Three"];
+const stream = new StreamArray(array);
+stream.on("data" , data => console.log("Reading chunk : " , data));
+stream.on("end" , _ => console.log("end"));
 
 
 const tasks = [
@@ -11,11 +17,10 @@ const tasks = [
   wait(13),
   wait(6)
 ];
-
-
 const queue = new PromiseQueue(tasks);
 
 queue.run();
+
 
 
 //node --trace_gc .
