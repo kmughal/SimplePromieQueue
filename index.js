@@ -58,11 +58,16 @@ const writeStream = createWriteStream("./copySampe1.txt");
 readStream.pipe(writeStream).on("error", e => console.log(e));
 
 
-const {Cluster} = require('./cluster-example');
+const {
+  Cluster
+} = require('./cluster-example');
 
 const clusterInstance = new Cluster();
 clusterInstance.start();
 
+const writeStream1 = createWriteStream("./input.txt");
+
+process.stdin.pipe(writeStream1);
 //node --trace_gc .
 
 // will dump Scavenge which is not bad as compared to Mark-sweep
