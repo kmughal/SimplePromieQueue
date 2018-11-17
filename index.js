@@ -3,12 +3,14 @@ const {
 } = require('util');
 const wait = promisify(require('./wait').wait);
 const PromiseQueue = require('./promise-queue').PromiseQueue;
-const {StreamArray} = require('./stream-array');
+const {
+  StreamArray
+} = require('./stream-array');
 
-var array = ["One" , "two" , "Three"];
+var array = ["One", "two", "Three"];
 const stream = new StreamArray(array);
-stream.on("data" , data => console.log("Reading chunk : " , data));
-stream.on("end" , _ => console.log("end"));
+stream.on("data", data => console.log("Reading chunk : ", data));
+stream.on("end", _ => console.log("end"));
 
 
 const tasks = [
@@ -20,6 +22,29 @@ const tasks = [
 const queue = new PromiseQueue(tasks);
 
 queue.run();
+
+
+
+
+const fs = require('fs');
+const writeFile = promisify(fs.writeFile);
+const unlink = promisify(fs.unlink);
+const filename = "sample.txt";
+const exists = promisify(fs.exists);
+
+
+const doSomeThing = () =>
+  Promise.resolve()
+  .then(_ => "create a file with a delay!")
+  .then(console.log)
+  .then(_ => wait(5))
+  .then(_ => exists(filename))
+  .then(present => present ? unlink(filename) : writeFile("sample.txt", "Hello world"))
+  .then(_ => "Completed")
+  .then(console.log)
+  .catch(console.error);
+
+doSomeThing();
 
 
 
