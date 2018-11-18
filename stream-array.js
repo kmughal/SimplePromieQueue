@@ -13,7 +13,6 @@ class StreamArray extends Readable {
     this.index = 0;
   }
 
-
   _read() {
     if (this.index > this.array.length) {
       return this.push(null);

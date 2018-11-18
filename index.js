@@ -70,6 +70,20 @@ const {
 const slowStream = new Throttle();
 
 process.stdin.pipe(slowStream).pipe(writeStream1);
+
+const {Shopper} = require("./shopper");
+const {Logger} = require("./logger");
+let shopper1 = new Shopper("John");
+shopper1.addShoppingList("Pen");
+shopper1.addShoppingList("Milk");
+
+let shopper2 = new Shopper("Paul");
+shopper2 = shopper1.clone();
+shopper2.name = "Paul";
+
+Logger.log(shopper1);
+Logger.log(shopper2);
+
 //node --trace_gc .
 
 // will dump Scavenge which is not bad as compared to Mark-sweep

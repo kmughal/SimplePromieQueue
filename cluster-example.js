@@ -3,6 +3,10 @@ const os = require("os");
 const express = require("express");
 const path = require("path");
 const {
+  Logger
+} = require("./logger");
+
+const {
   stat,
   createWriteStream
 } = require("fs");
@@ -23,7 +27,7 @@ class Cluster {
 
   start() {
     if (cluster.isMaster) {
-      console.log("cluster is master");
+      Logger.log("cluster is master");
       this.createChildProcesses();
       this.registerNotificationEvent();
     } else {
@@ -36,7 +40,7 @@ class Cluster {
   }
 
   handleNotification(cmd) {
-    console.log(`Message received from express : ${JSON.stringify(cmd)}`);
+    Logger.log(`Message received from express : ${JSON.stringify(cmd)}`);
   }
 
   setResponseForFileDownload() {
@@ -106,7 +110,7 @@ class Cluster {
   }
   startListening() {
     this.app.listen(this.port, () => {
-      console.log("Server running : ", this.port);
+      Logger.log("Server running : ", this.port);
     });
   }
 
