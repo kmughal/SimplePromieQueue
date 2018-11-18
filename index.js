@@ -12,7 +12,6 @@ const stream = new StreamArray(array);
 stream.on("data", data => console.log("Reading chunk : ", data));
 stream.on("end", _ => console.log("end"));
 
-
 const tasks = [
   wait(5),
   wait(9),
@@ -42,8 +41,6 @@ const doSomeThing = () =>
   .catch(console.error);
 
 doSomeThing();
-
-
 
 writeFile("sample1.txt", "this is a test file");
 

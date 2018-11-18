@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "*",
     "log-update": "*",
-    "express": "*"
+    "multiparty": "^4.2.1"
   }
 }
