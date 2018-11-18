@@ -71,8 +71,12 @@ const slowStream = new Throttle();
 
 process.stdin.pipe(slowStream).pipe(writeStream1);
 
-const {Shopper} = require("./shopper");
-const {Logger} = require("./logger");
+const {
+  Shopper
+} = require("./shopper");
+const {
+  Logger
+} = require("./logger");
 let shopper1 = new Shopper("John");
 shopper1.addShoppingList("Pen");
 shopper1.addShoppingList("Milk");
@@ -84,6 +88,36 @@ shopper2.name = "Paul";
 Logger.log(shopper1);
 Logger.log(shopper2);
 
+
+const {
+  Iterator
+} = require("./iterator");
+
+const inventory = new Iterator([{
+    name: "Pen",
+    qty: 10
+  },
+  {
+    name: "Rubber",
+    qty: 5
+  },
+  {
+    name: "Books",
+    qty: 140
+  },
+  {
+    name: "Milk",
+    qty: 2
+  },
+  {
+    name: "Tea",
+    qty: 100
+  },
+]);
+
+inventory.last().print();
+inventory.next().print();
+inventory.first().print();
 //node --trace_gc .
 
 // will dump Scavenge which is not bad as compared to Mark-sweep
